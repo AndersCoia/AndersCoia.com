@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Earthquake Visualisation</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.1.2/svg.min.js"></script>
+        <style>
+            .col{
+                stroke-width: 25px; 
+            }
+            .intro{
+                stroke-width: 750px;
+                opacity: 100%;
+            }
+            .story{
+                word-wrap: normal;
+                text-anchor: middle;
+                opacity: 100%;
+            }
+            .skybox{
+                stroke-width: 500px;
+            }
+            .xtext{
+                text-anchor: middle;
+                font-size: 9px;
+                font-family: "Montserrat";
+                font-weight: 200;
+            }
+            .introtxt{
+                text-anchor: middle;
+                font-family: "Montserrat";
+                font-size: 28px;
+                font-weight: 600;
+            }
+            .graphtxt{
+                text-anchor: middle;
+                font-family: "Montserrat";
+                font-size: 20px; 
+            }
+            .special{
+                text-anchor: middle;
+                font-family: "Montserrat";
+                font-size: 30px;
+                font-weight: 600;
+            }
+            .header{
+                font-family: "Montserrat";
+                font-size: 15px;
+                font-weight: 600;
+            }
+            .accent{
+                stroke-width: 480px
+            }
+            .subheader{
+                font-family: "Montserrat";
+                font-size: 10px;
+                font-weight: 200;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+
+            var data = [ // all earthquake data received from 
+                {
+                "Date": "15/01",
+                "Magnitude": 3.7,
+                "Power": 5011.872336
+                },
+                {
+                "Date": "26/01",
+                "Magnitude": 2.5,
+                "Power": 316.227766
+                },
+                {
+                "Date": "7/02",
+                "Magnitude": 3.4,
+                "Power": 2511.886432
+                },
+                {
+                "Date": "16/03",
+                "Magnitude": 2.7,
+                "Power": 501.1872336
+                },
+                {
+                "Date": "23/03",
+                "Magnitude": 2.9,
+                "Power": 794.3282347
+                },
+                {
+                "Date": "30/03",
+                "Magnitude": 3.4,
+                "Power": 2511.886432
+                },
+                {
+                "Date": "3/04",
+                "Magnitude": 2.7,
+                "Power": 501.1872336
+                },
+                {
+                "Date": "22/09",
+                "Magnitude": 5.8,
+                "Power": 630957.3445
+                },
+                {
+                "Date": "9/10",
+                "Magnitude": 4.7,
+                "Power": 50118.72336
+                },
+                {
+                "Date": "21/10",
+                "Magnitude": 2.7,
+                "Power": 501.1872336
+                },
+                {
+                "Date": "3/11",
+                "Magnitude": 2.9,
+                "Power": 794.3282347
+                },
+                {
+                "Date": "5/11",
+                "Magnitude": 2.6,
+                "Power": 398.1071706
+                },
+                {
+                "Date": "17/11",
+                "Magnitude": 2.5,
+                "Power": 316.227766
+                },
+                {
+                "Date": "27/12",
+                "Magnitude": 3.2,
+                "Power": 1584.893192
+                },
+                {
+                "Date": "28/12",
+                "Magnitude": 2.8,
+                "Power": 630.9573445
+                }
+
+            ]
+            
+            var w = 540, h = 960; // Storybox Screen size from Data Vis Demo
+            var draw = SVG().addTo('body').size(w, h); // tell the code to make a SVG canvas of size w,h
+            var pscale = 0.00095; // scale for power
+            var mscale = 100; // scale for magnitude
+            var xmargin = 60; //x margin for spacing and making the graph look good
+            var xspace = 30; // space between bar lines
+            var baseline = 920; // more spacing for bottom, makes room for my name
+            var header = 150; // was an attempt at making a header (like baseline but for the top), instead i decreased the y scale.
+            var colHeight = 0;
+            var colour = ["#ecd19c"/*background*/,"#251005"/*ground*/, "#36389c"/*bars*/, "#fdebc9" /*textbox*/]
+            var StoryText = [
+                "On September 22nd", "residents all across Canberra", "were shocked as the ground shook.",
+                "An earthquake,", "a rare occurance in Australia alone,", "not just Canberra.",
+                "But is it really?",
+
+                "Surprisingly in Victoria and NSW alone", "there were 15 earthquakes during 2021.",
+                "However, they are usually so small that", "they can barely be felt at their point of origin.","Let alone in Canberra.",
+                
+
+                "When comparing magnitudes", "the difference doesn't seem so big.",
+                "But this scale is confusing,","and September's Quake had its origin", "in central Victoria...",
+                "Surely its stronger than this?",
+
+                "the true power of the quake in question", "paints a completely different picture.","Shown by calculating the magintude of each quake"
+                ,"in relation to a 1.0 magnitude earthquake.",
+                "Now it makes sense,", "why earthquakes seem so rare.","Becuase the strong ones","Actually Are."
+                
+            ]
+
+            var sec = 0; // establishes timer
+            var bars = []; // initially i had the values for the bars stored in an array, but i found it unneccesary
+            var datapoints = []; // similarly to the array above this is a remnant of my different attempts at storing values to animate the columns - this was before i remebered the .plot function, making my life a lot easier
+
+
+            var clock = window.setInterval(function(){ // adapted from squecncing 2 - stepped by Mitchell Whitlaw
+                
+                if (sec == 1){ // I found that this was the best way to format my code and to have a proper sequece that suited my tastes, giving me much more control over when the timings for elements change
+                    
+                    intro();
+
+                    draw.text("Anders Coia, ANU School of Art and Design")
+                    .opacity(0)
+                    .addClass("xtext")
+                    .fill(colour[0])
+                    .move(w/4+35,baseline+20)
+                    .animate(300,0,"now")
+                    .opacity(1);
+
+                    introtxt(0,0);// a re-occuring problem throughout my entire code is that i couldn't find a way to wrap text to another line, thus i came up with solutions like this
+                    introtxt(1,0);
+                    introtxt(2,0);
+                    
+                }
+
+                if (sec == 3){
+                    
+                    introtxt(3,50); 
+                    introtxt(4,50);
+                    introtxt(5,50);
+                }
+
+                if (sec == 6){
+                    introtxt(6,300);
+                }
+
+                if (sec == 10){
+                    reset();
+                    viz();
+
+                    draw.text("Anders Coia, ANU School of Art and Design")
+                    .addClass("xtext")
+                    .move(w/4+35,baseline+20)
+
+                    graphtxt(7,0,0);
+                    graphtxt(8,1,0);
+                }
+
+                if (sec == 14){
+                    graphtxt(9,3,0);
+                    graphtxt(10,4,0);
+                    graphtxt(11,5,0);
+                    
+                }
+
+                if (sec == 18){
+                    remtxt();
+                    graphtxt(12,0,0);
+                    graphtxt(13,1,0);
+                }
+
+                if (sec == 22){
+                    graphtxt(14,3,0);
+                    graphtxt(15,4,0);
+                    graphtxt(16,5,0);
+                }
+                
+                if (sec == 27){
+                    remtxt();
+                    graphtxt(17,3,1);
+
+                }
+
+                if (sec == 30){
+                    remtxt();
+                    graphtxt(18,0,0);
+                    graphtxt(19,1,0);
+                }
+                
+                if(sec == 33){
+                    graphtxt(20,3,0);
+                    graphtxt(21,4,0);
+                }
+
+                if (sec == 38){
+                    remtxt();
+                    graphtxt(22,0,0);
+                    graphtxt(23,1,0);
+                    
+                }
+
+                if (sec == 40){
+                    graphtxt(24,3,0);
+                }
+
+                if (sec == 41){
+                    graphtxt(25,5,0);
+                }
+
+                if (sec == 47){ // it took me a very long time to work out the timing, I feel like this is the best I can get
+                    reset();// sometimes it does feel too long, however, I want to give all types of readers the chance to read the text
+                    sec = 0;
+                }
+
+          
+           
+                sec++;
+            },1000)
+
+
+            /*
+            function words() {
+                //I originally thought that i would make the words on an auto timer, however, after experimenting I realised that I would get the best aesthetic outcome if I animated it by hand
+                
+                for (var i = 0; i<3; i++){
+                    draw.text(StoryText[i])
+                    .move(w/2, 50+i*50)
+                    .addClass("story")                    
+                    ;
+                }
+            }
+            */
+            function introtxt(i,space){
+                var text = draw.text(StoryText[i]) // the most simplistic method i came up with to schedule text to appear when i wanted it to
+                    .move(w/2, 100+i*35+space);
+
+                text.addClass("introtxt")
+                    .opacity(0)
+                    .animate(300,0,"now")
+                    .opacity(1);
+
+                if (i == 6){
+                    text.fill("#ecd19c")
+                }
+            }
+
+            function graphtxt(i,j,k){ //repeated the code from introtxt into this format, adding an extra conditional to change expression if i wanted to
+                
+                    var text = draw.text(StoryText[i])
+                    .move(w/2,50+j*25)
+                    .fill(colour[0]);
+
+                    text.opacity(0)
+                    .animate(300,0,"now")
+                    .opacity(1);
+                
+
+                if (k == 1){
+                    text.addClass("special")
+                }
+                if (k == 0){
+                    text.addClass("graphtxt")
+                }
+            }
+            
+            function intro(){ // this was by far some of the most fun but tedious work, I messed around with the earthquake visualisation a lot, trying to make it the most convincing i could 
+                
+                var sky = draw.line(w/2, 0, w/2, 0)
+                .addClass("intro")
+                .stroke(colour[0]);
+
+                var ground = draw.line(w/2, h+100, w/2, h+100)
+                .addClass("intro")
+                .stroke(colour[1])
+                ;
+
+                var ground2 = draw.line(w/2, h+100, w/2, h+100)
+                .addClass("intro")
+                .stroke(colour[1]);
+
+                sky.animate(1000,0,"now")
+                .plot(w/2, 0, w/2, h)
+
+                ground.animate(1000,0,"now")
+                .plot(w/2, h+100, w/2, h/2);
+
+                ground2.animate(1000,0,"now")
+                .plot(w/2, h+100, w/2, h/2);
+
+                let a = ground
+                .animate(100,2000,"now") // box vibrates to simulate earthquake
+                .plot(w/2, h+100, w/2, h/2-20)
+                .rotate(1)
+                .animate(10,2100,"now")
+                .rotate(-2) // rotation adds some extra oomph
+                .plot(w/2, h+100, w/2, h/2+20);
+                
+                a.loop(1000,100,100);
+
+                let b = ground2
+                .animate(10,2000,"now") // added a second box to give the vibration more randomness, mirroring the first box
+                .plot(w/2, h+100, w/2, h/2-20)
+                .rotate(-1)
+                .animate(100,2100,"now")
+                .rotate(2)
+                .plot(w/2, h+100, w/2, h/2+20);
+
+                b.loop(100,100,200); // earthquake simulation basically just animating from one position to another over and over again
+                
+            }
+
+            
+
+            function viz(){ // this section is probably the most messy out of each of the functions
+                
+                var bg = draw.rect(w,h)
+                .fill(colour[0])
+                .addClass("bg");
+
+                /*draw.line(w/2,baseline+20, w/2, h-695)
+                .stroke(colour[3])
+                .addClass("accent");*/
+
+
+                draw.text("Earthqakes Jan-Dec 2021") // if only i could have figured out how to wrap text
+                .opacity(0) // its not too bad though and functions as inteded, just gives the code some unnecessary bloat
+                .addClass("header")
+                .move(xmargin-20,h-690)
+                .animate(300,2500,"now")
+                .opacity(1);
+
+                draw.text("NSW and VIC")
+                .opacity(0)
+                .addClass("header")
+                .move(xmargin-20,h-670)
+                .animate(300,2500,"now")
+                .opacity(1);
+
+                draw.text("By Magnitude")
+                .opacity(0)
+                .addClass("header")
+                .move(xmargin-20,h-650)
+                .animate(300,2500,"now")
+                .opacity(1)
+                .animate(300,19700, "now")
+                .opacity(0);
+                
+                draw.text("By Power")
+                .opacity(0)
+                .addClass("header")
+                .move(xmargin-20,h-650)
+                .animate(300,20000,"now")
+                .opacity(1)
+
+                draw.text("*A comparison of magnitudes in relation")
+                .opacity(0)
+                .addClass("subheader")
+                .move(xmargin-20,h-625)
+                .animate(300,20000,"now")
+                .opacity(1)
+
+                draw.text("to a 1.0 magnitude earthquake")
+                .opacity(0)
+                .addClass("subheader")
+                .move(xmargin-20,h-615)
+                .animate(300,20000,"now")
+                .opacity(1)
+
+                draw.text("Data From Seismology Research Center")
+                .opacity(0)
+                .addClass("subheader")
+                .move(w/2+25,h-690)
+                .animate(300,2500,"now")
+                .opacity(1);
+
+                draw.text("src.com.au")
+                .opacity(0)
+                .addClass("subheader")
+                .move(w/2+167,h-680)
+                .animate(300,2500,"now")
+                .opacity(1);
+
+                data.forEach((d,i) =>{
+                            
+                var l = draw.line(xmargin + i*xspace, baseline, xmargin + i*xspace, baseline) // adapted from pv data vis demo - Mitchell Whitelaw
+                .stroke(colour[2])
+                .addClass("col");
+
+                draw.text(d.Date)
+                .move(xmargin + i*xspace, baseline)
+                .addClass("xtext");
+
+                if (i == 7){
+                    l.stroke("#993333") // I messed around with the colours of the graph for quite a while, I wish the bars would comply more with the established colour scheme from the intro, however, i just found it was uninteresting and inaccessible
+                }
+
+                
+                l.animate(2000,500,"now") // the delay section of the animate element doesn't necessarily function as a 
+                .plot(xmargin + i*xspace, baseline, xmargin + i*xspace, baseline - d.Magnitude*mscale);
+
+                var graphtxt = draw.text(d.Magnitude) // Im sure there is a cleaner way of formatting this section of the animation, but this worked best for me, and if its not broke...
+                .move(xmargin + i*xspace, baseline - d.Magnitude*mscale -30)
+                .addClass("xtext") // I really liked this way of adding context without having to insert graphlines - it keeps much of the flow of the graph
+                .opacity(0)
+                .animate(300, 2500 , "now")
+                .opacity(1)
+                .animate(2000,20000, "now")// i tried to use .plot but I couldn't get it to work for the life of me - i then realised why am i trying to use plot, i can just use move 
+                .move(xmargin + i*xspace-7, baseline - d.Power*pscale -20); //for some off reason the text kept on moving to the right, so i had to keep
+                               
+                
+                 l.animate(2000,20000,"now")
+                .plot(xmargin + i*xspace, baseline, xmargin + i*xspace, baseline - d.Power*pscale);
+                
+                
+                
+                })
+
+                var skybox = draw.line(0,0,0,0) // how i ended up making the header in the end
+                .stroke(colour[1])
+                .addClass("skybox")
+                .animate(500,0,"now")
+                .plot(0,0,w,0);
+            }
+
+            
+            function reset(){
+                SVG.find(".col").remove(); // i made many different classes so this function is a little bulky, but it works well
+                SVG.find(".intro").remove(); // i intentionally made the start and the end white to help the transitions between other visualisations - don't know if it will but it was a thought
+                SVG.find(".introtxt").remove();
+                SVG.find(".graphtxt").remove();
+                SVG.find(".special").remove();
+                SVG.find(".skybox").remove();
+                SVG.find(".xtext").remove();
+                SVG.find(".bg").remove();
+                SVG.find(".header").remove();
+                SVG.find(".accent").remove();
+                SVG.find(".subheader").remove();
+
+
+            }
+
+            function remtxt(){
+                SVG.find(".graphtxt").remove();
+                SVG.find(".special").remove(); // overall i am really happy with my visualisation and it looks very similar to my sketches - the actual data vis is a little cluttered and kind of confusing, but hopefully that is alleviated by the text
+            }
+
+                
+
+        </script>
+    </body>
+</html>

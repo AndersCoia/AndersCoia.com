@@ -1,0 +1,334 @@
+* {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: 'sarabun', sans-serif;
+  }
+    
+  body{
+    background-color: #ffffff;
+    
+  }
+  nav{
+    background-color: #722922;
+    padding: 2% 20%;
+    position: sticky;
+    width: 100%;
+  }
+  nav ul{
+    display: flex;
+    list-style: none;
+  }
+  nav h1{
+    color: #F2EBDF;
+    text-align: left;
+    font-size: 3rem;
+  }
+  .navname{
+    margin: 0 13% 0 0;
+    padding: 0;
+    border-right: solid 5px #F2EBDF;
+  }
+  nav ul li{
+    flex: auto;
+    font-size: 1rem;
+    text-align: right;
+    margin: 30px 0 0 0;
+    
+  }
+  nav ul li a{
+    color: #F2EBDF;
+  }
+  main{
+    display: block;
+    min-height: 62vh;
+  }
+  h1{
+    color: #ffffff;
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 1% 0;
+    text-align: center;
+  }
+  h2{
+    color: #722922;
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 1% 0;
+    text-align: center;
+  }
+  h3{
+    color: #722922;
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 4% 0 1% 0;
+  }
+  section{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+  }
+  section aside{
+    width: 100%;
+    position: relative;
+    display: block;
+    margin: 0 0 -4px 0;
+  }
+  img{
+    z-index: -1;
+    width:100%;
+  }
+  aside h1{
+    position: absolute;
+    font-size: 8rem;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #722922;
+    padding: 10px 30px 15px 30px;
+    text-wrap: nowrap;
+  }
+  aside h2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f7f2eb;
+    padding: 10px 20px 15px 20px;
+  }
+  aside p{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #f7f2eb;
+    font-size: 1rem;
+    transform: translate(-50%, -50%);
+    background-color: #722922;
+    padding: 10px 20px 15px 20px;
+    margin-top: 10px;
+  }
+  aside figure{
+    margin: 0;
+    text-align: center;
+  }
+  aside a:hover h2{
+    color: #ffffff;
+    background-color: #722922;
+  }
+  footer{
+    background-color: #010113;
+    padding: 3% 20%;
+    min-height: 17vh;
+    display: flex;
+    gap: 2%;
+  }
+  footer p {
+    color: #F2EBDF;
+  }
+  .breadcrumb{
+    margin: 1vh 0 0 20%;
+  }
+  .breadcrumb a{
+    font-size: 1rem;
+    font-weight: 400;
+    color: #722922;
+  }
+  .breadcrumb a:hover{
+    color: #d2b991;
+  }
+  hgroup p{
+    font-size: 1.5rem;
+    font-weight: 100;
+    text-align: left;
+    margin-bottom: 2%;
+  }
+  hgroup h2{
+    text-align: left;
+  }
+  .content{
+    padding:2% 20% 7% 20%;
+  }
+  .content ul{
+    list-style: none;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+  .content li{
+    margin-top: 10px;
+  }
+  main span {
+    background-color: #722922;
+    position: absolute;
+    top: 6%;
+    left: 6%;
+    z-index: 2;
+  }
+ 
+  @media (max-width: 1920px) {
+    
+    .bg{
+      padding: 4% 8%;
+    }
+    .home-page{
+      flex-direction: column;
+    }
+    .carousel{
+      width: 90%;
+      margin-left: 5%;
+    }
+    .carousel-item{
+      height: 22vh;
+    }  
+    nav{
+      overflow-x: clip;
+    }
+    
+    nav{
+      display: block;
+      z-index: 1;
+      -webkit-user-select: none;
+      user-select: none;
+      background-color: transparent;
+      padding: 2% 2%;
+      position: fixed;
+      top: 0;
+    }
+    nav h1{
+      margin-top: 20%;
+    }
+    nav a{
+        transition: colour 0.3s ease;
+    }
+    nav a:hover{
+    color: #d2b991;
+    }
+    nav a h1:hover{
+        color: #d2b991;
+        }
+    nav a{
+      color: #000066;
+    }
+    nav input{
+        display: block;
+        width: 60px;
+        height: 70px;
+        position: absolute;
+        cursor: pointer;
+        opacity: 0;
+        z-index: 2;
+        -webkit-touch-callout: none;
+        margin-left: 91%;
+    }
+    nav span{
+        display: block;
+        width: 60px;
+        height: 10px;
+        margin: 12px 0;
+        margin-right: 0;
+        background-color: #722922;
+        z-index: 1;
+        transition: 0.55s ease;
+        position: relative;
+        transform-origin: 4px 0px;
+        margin-left: 95%;
+        
+    }
+    
+    nav span:nth-child(2)
+    {
+    transform-origin: 0px 0px;
+    }
+  
+    nav span:nth-child(4)
+    {
+    transform-origin: 0% 100%;
+    }
+  
+    nav input:checked ~ span
+    {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background-color: #F2EBDF;
+    }
+    nav input:checked ~ span:nth-child(2)
+    {
+    transform: rotate(45deg) translate(0, 3px);
+    }
+    nav input:checked ~ span:nth-child(4)
+    {
+    transform: rotate(-45deg) translate(0, -3px);
+    }
+    nav input:checked ~ span:nth-child(3)
+    {
+    opacity: 0;
+    transform: scale(0.2, 0.2);
+    }
+  
+    nav ul{
+        position: absolute;
+        min-width: 100%;
+        margin: -25% 0 0 0;
+        padding: 20% 15%;
+        background: #722922;
+        list-style-type: none;
+        -webkit-font-smoothing: antialiased;    
+        transform-origin: 0% 0%;
+        transform: translate(200%, 0);
+        transition: 0.5s ease;
+        flex-direction: column;
+    }
+    nav input:checked ~ ul{
+        transform: none;
+    }
+    nav ul li{
+        margin: 1vh 0;
+        font-size: 2rem;
+        text-align: right;
+    }
+    .navname{
+      margin: 0;
+      border: none;
+    }
+    .navname h1{
+      text-align: right;
+    }
+    .breadcrumb {
+      margin: 1vh 0 0 2%;
+    }
+    footer{
+      padding: 2% 2%;
+    }
+    .carousel-page{
+      margin: 0 2%;
+    }
+    .carousel-page img{
+      height: 15vh;
+    }
+    .button{
+      float: none;
+      margin: 2vh 0;
+    }
+  }
+  @media (max-width: 820px) {
+    body{
+        padding: 2% 2%;
+      }
+      main{
+        padding: 4% 4%;
+      }
+      nav input{
+        margin-left: 80%;
+    }
+    nav span{
+        margin-left: 85%;
+        
+    }
+    nav h1{
+        margin-top: 20%;
+        transform: translate(0,-6vh);
+      }
+      section aside{
+        width: 98%;
+      }
+  }

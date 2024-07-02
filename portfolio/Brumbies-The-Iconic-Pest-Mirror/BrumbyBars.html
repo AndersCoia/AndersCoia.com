@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.1.2/svg.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>BrumbyBars</title>
+    <style>
+        .bars{
+            stroke: brown;
+            width: 60px;
+        }
+        ul {
+  list-style-type:none;
+  margin: 0;
+  padding: 0;
+  word-spacing: 25px;
+  font-weight: bold;
+}
+
+li {
+  display: inline;
+}
+
+h4 {
+  list-style-type: none;
+  font-weight: bold;
+
+}
+body{
+  font-family:Roboto;
+}
+
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+    var data = [
+    {
+      "Year": 2005,
+      "Count": 1700
+    },
+    {
+      "Year": 2009,
+      "Count": 4237
+    },
+    {
+      "Year": 2014,
+      "Count": 9187
+    },
+    {
+      "Year": 2019,
+      "Count": 25318
+    },
+    {
+      "Year": 2027,
+      "Count": 3000
+    },
+    {
+      "Year": 2036,
+      "Count": 600
+    }
+    ]
+    //var w = 540, h = 960;
+
+    var w = 700, h = 850;
+    var draw = SVG().addTo('body').size(w, h);
+    var xspace = 64;
+   //var xmargin = 60;
+    var xmargin = 250;
+    var yscale = 0.012;
+    //var yscale = 0.002;
+    var base = 550;
+
+    
+
+    data.forEach((d,i) =>{
+
+      var l = draw.line(xmargin + i*xspace,base,xmargin + i*xspace, base).stroke({width: 25, color:"#ecd19c"}).addClass("bars");
+  
+      l.animate(500,i*700)
+          .plot(xmargin + i*xspace, base, xmargin + i*xspace, base- d.Count*yscale)
+          
+    })
+    
+</script>
+<h3 style="margin-top: -700px; margin-left: 240px;">Brumby growth from 2005-2019 + 2027-2036 Projection</h3>
+<h3 style="margin-top: 450px; margin-left: 430px;">Years</h3>
+<h3 style="margin-top: -300px; margin-left: 40px;">Count</h3>
+
+<ul style="margin-top: 180px; margin-left: 230px;">
+<li>2005</li>
+<li>2009</li>
+<li>2014</li>
+
+<li>2019</li>
+
+<li>2027</li>
+<li>2036</li>
+</ul>
+
+<h4 style="margin-left: 170px;">
+  <p style="margin-top: -425px;">30000</p>
+  <p style="margin-top: 42px;">25000</p>
+  <p style="margin-top: 42px;">20000</p>
+  <p style="margin-top: 42px;">15000</p>
+  <p style="margin-top: 42px;">10000</p>
+  <p style="margin-top: 42px;">5000</p>
+  <p style="margin-top: 42px;">0</p>
+</h4>
+ <br>
+ <br>
+<h1><a href="Assessment 3.html">Return to Article</a></h1>
+
+</body>
+</html>
