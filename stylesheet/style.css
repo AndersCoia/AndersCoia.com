@@ -190,10 +190,6 @@ section aside{
 aside img{
   width: 100%;
 }
-aside figure{
-  margin: 20% 0;
-  text-align: center;
-}
 aside a{
   color: #010113;
 }
@@ -201,37 +197,46 @@ aside a:hover{
   color: #010113;
 }
 aside span{
-  width: 29.2vw;
-  height: 25.5vw;
-  background-color: #000066;
-  position: absolute;
-  color: #F2EBDF;
+  display: none;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-  border-radius: 2px;
+  background-color: #000066;
+  color: #F2EBDF;
+  border-radius: 10px;
 }
 aside span h3{
-  margin: 30% 10% 5% 10%;
+  padding: 30% 10% 3% 10%;
   color: #F2EBDF;
   text-align: center;
   font-size: 2rem;
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
 }
 aside span p {
-  margin: 5% 10%;
+  padding: 1% 10%;
   color: #F2EBDF;
   text-align: center;
   font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
 }
 aside:hover span{
   display: block;
-  opacity: 100;
+  opacity: 1;
+}
+span:hover p{
+  opacity: 1;
+}
+span:hover h3{
+  opacity: 1;
 }
 aside figure{
   margin: 0;
   text-align: left;
 }
 aside:hover figure{
-  opacity: 0;
+  display: none;
 }
 .large{
   font-size: 1.5rem;
@@ -659,10 +664,5 @@ summary:hover{
 @media (min-width: 820px) {
   nav input, nav span{
     display: none;
-  }
-  section input, section span{
-    display: none;
-  }
-  
- 
+  } 
 }
