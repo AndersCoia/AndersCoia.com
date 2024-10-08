@@ -23,7 +23,6 @@ class SiteNav extends HTMLElement {
                 </label>
             <ul>
                 <li class="navname"><a href="/"><h1>Anders Coia</h1></a></li>
-                <li><a href="/">Home</a></li>
                 <li><a href="design">Design</a></li>
                 <li><a href="photography">Photography</a></li>
                 <li><a href="animation">Animation</a></li>
