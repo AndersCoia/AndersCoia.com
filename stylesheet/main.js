@@ -22,10 +22,8 @@ class SiteNav extends HTMLElement {
                 <span></span>
                 </label>
             <ul>
-                <li class="navname"><a href="/"><h1>Anders Coia</h1></a></li>
-                <li><a href="design">Design</a></li>
-                <li><a href="photography">Photography</a></li>
-                <li><a href="animation">Animation</a></li>
+                <li class="nav-logo"><a href="/"><img src="images/icons/nav-logo.svg" alt=""></a></li>
+                <li><a href="projects">Projects</a></li>
                 <li><a href="about">About</a></li>
                 <li><a href="contact">Contact</a></li>
             </ul>
@@ -46,12 +44,10 @@ class PortfolioNav extends HTMLElement {
                 <span></span>
                 </label>
             <ul>
-                <li class="navname"><a href="../"><h1>Anders Coia</h1></a></li>
-                <li><a href="../design">Design</a></li>
-                <li><a href="../photography">Photography</a></li>
-                <li><a href="../animation">Animation</a></li>
-                <li><a href="../about">About</a></li>
-                <li><a href="../contact">Contact</a></li>
+                <li class="nav-logo"><a href="/"><img src="/images/icons/nav-logo.svg" alt=""></a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
         </nav>
         `

@@ -42,7 +42,7 @@ h1{
   font-family:'Abril Fatface', serif;
 }
 h2{
-  font-family: 'sarabun', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 .home-nav h1{
   font-weight: 400;
@@ -130,7 +130,7 @@ ol, li {
 /*--------------------------PORTFOLIO----------------------------*/
 
 body{
-  background: linear-gradient(#FFFFFF,#F2EBDF);
+  background: #ffffff;
   background-size: 400% 400%;
 }
   /* animation: 40s ease infinite gradient;
@@ -147,8 +147,7 @@ body{
 	}
 } */
 nav{
-  background-color: #000066;
-  padding: 1% 5%;
+  padding: 1% 18%;
   font-family: 'Sarabun', sans-serif;
   position: sticky;
   top: 0;
@@ -157,30 +156,28 @@ nav{
 }
 nav ul{
   display: flex;
+  align-items: flex-start;
   list-style: none;
-  gap: 10px;
-  width: 60%;
+  width: 50%;
+  min-height: 60px;
+  border-radius: 30px;
+  background: radial-gradient(#cf774d, #be5220);
+  filter: drop-shadow(#a13d0f75 0px 0px 5px);
 }
-nav h1{
-  color: #F2EBDF;
-  font-size: 2rem;
-  font-weight: 400;
+.nav-logo{
+  margin-top: 0;
 }
-.navname{
-  margin: 0 2.7% 0 0;
-  
+.nav-logo img{
+  height: 60px;
 }
 nav ul li{
-  flex: auto;
-  flex-wrap: wrap;
-  
+  flex: auto;  
   font-size: 1.1rem;
-  text-align: left;
-  margin: 1.3% 0 0 0;
-  
+  text-align: center;
+  margin: 18px 5% 0 5%;
 }
 nav ul li a{
-  color: #F2EBDF;
+  color: #FFFFFF;
 }
 main{
   padding: 1% 20%;
@@ -188,16 +185,16 @@ main{
   min-height: 62vh;
 }
 main h2{
-  color: #000066;
+  color: #cf774d;
   font-size: 3rem;
-  font-weight: 800;
+  font-weight: 900;
   margin: 1% 0;
 }
 .break{
   margin: 2% 0;
   width: 15%;
   height: 8px;
-  background-color: #000066;
+  background-color: #cf774d;
   display: block;
 }
 main h3{
