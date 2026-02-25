@@ -1,5 +1,5 @@
 ---
-slug: "acme-brand-refresh"
+slug: "project-b"
 title: "Acme Brand Refresh"
 date: "2025-02-12"
 tags: ["branding", "identity"]
