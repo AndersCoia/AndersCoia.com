@@ -2,6 +2,7 @@
 slug: "project-a"
 title: "Acme Brand Refresh"
 date: "2025-02-12"
+featured: "true"
 tags: ["branding", "identity"]
 layout: "A"      	# choose: "A", "B", or "C"
 imagesDir: "/src/assets/portfolio/acme-brand-refresh"
