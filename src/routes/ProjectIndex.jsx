@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { loadProjectIndex } from "../lib/contentLoader";
 import useBodyClass from "../lib/useBodyClass";
+import HomeNav from "../components/HomeNav.jsx";
 
 function getProjectImage(p) {
   // Prefer thumb, fallback to hero
@@ -47,7 +48,7 @@ export default function ProjectIndex() {
   return (
 	<>
   	{/* If you build a HomeNav component later, put it here */}
-  	{/* <HomeNav /> */}
+  	<HomeNav />
 
   	<main className="home-page">
     	<h1>HI I'M ANDERS, A DESIGNER WORKING ACROSS WEB, GRAPHIC DESIGN AND UX</h1>

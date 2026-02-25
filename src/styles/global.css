@@ -96,12 +96,13 @@ nav {
 nav ul {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   list-style: none;
   min-height: 60px;
-  padding: 0 18px;
+  padding: 0 30px;
   border-radius: var(--radius-lg);
 
-  width: min(560px, 100%);
+  width: min(400px, 100%);
   background: radial-gradient(var(--brand-1), var(--brand-2));
   filter: drop-shadow(var(--nav-shadow) 0px 0px 5px);
 }
@@ -113,14 +114,7 @@ body.bg nav ul {
 }
 
 nav ul li {
-  flex: 1;
   font-size: 1.1rem;
-  text-align: center;
-}
-
-.nav-logo {
-  flex: 0;
-  text-align: left;
 }
 
 .nav-logo img {
@@ -137,7 +131,7 @@ body.bg nav ul li a {
 }
 
 nav ul li a:hover {
-  filter: drop-shadow(#D696A4 0px 2px 2px);
+  border-bottom: 2px solid #faddcf;
 }
 
 /* =========================

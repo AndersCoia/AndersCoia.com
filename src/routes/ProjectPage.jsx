@@ -4,6 +4,7 @@ import { loadProjectIndex, loadProjectBody } from "../lib/contentLoader";
 import LayoutA from "../layouts/LayoutA.jsx";
 import LayoutB from "../layouts/LayoutB.jsx";
 import LayoutC from "../layouts/LayoutC.jsx";
+import SiteNav from "../components/SiteNav.jsx";
 
 const layouts = { A: LayoutA, B: LayoutB, C: LayoutC };
 
@@ -47,6 +48,8 @@ export default function ProjectPage() {
   const Layout = layouts[project.layout] || LayoutA;
 
   return (
+	<>
+	<SiteNav />
 	<main className="container">
   	{loading ? <p>Loading…</p> : <Layout project={{ ...project, content: body }} />}
 
@@ -54,6 +57,7 @@ export default function ProjectPage() {
     	<Link to="/">← Back</Link>
   	</nav>
 	</main>
+	</>
   );
 }
 

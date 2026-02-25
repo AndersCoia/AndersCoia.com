@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import SiteNav from "./components/SiteNav.jsx";
+
 import SiteFooter from "./components/SiteFooter.jsx";
 
 import ProjectIndex from "./routes/ProjectIndex.jsx";
@@ -12,7 +12,7 @@ import Contact from "./routes/Contact.jsx";
 export default function App() {
   return (
 	<>
-  	<SiteNav />
+  	
 
   	<Routes>
     	<Route path="/" element={<ProjectIndex />} />
