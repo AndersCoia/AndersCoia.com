@@ -5,7 +5,7 @@ export default function About() {
     <>
     <SiteNav />
     <main>
-    <h2>About</h2>
+    <h1>About</h1>
     <span className="break" aria-hidden="true"></span>
     <p>Write your about copy here.</p>
     </main>

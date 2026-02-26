@@ -10,7 +10,7 @@ summary: "A modern refresh of Acme’s identity across print and digital."
 coverAlt: "Acme logotype on yellow background"
 ---
 
-### Briefa
+### Brief
 Acme needed a timeless yet energetic refresh...
 
 ### Approach

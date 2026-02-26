@@ -12,15 +12,15 @@
   --nav-shadow: #a13d0f75;
   --home-nav-shadow: #ffcdb675;
 
-  --radius-lg: 30px;
-  --radius-md: 10px;
+  --radius-pill: 30px;
+  --radius-img: 10px;
 
-  --pad-page: clamp(16px, 4vw, 80px);
-  --pad-nav-x: clamp(16px, 6vw, 18%);
-  --pad-main-x: clamp(16px, 6vw, 20%);
+  --pad-nav: clamp(16px, 6vw, 18%);
+  --pad-main: 4% 8%;
 
   --font-display: "Montserrat", sans-serif;
   --font-body: "Sarabun", sans-serif;
+  background: var(--brand-1);
 }
 
 * {
@@ -60,78 +60,111 @@ p {
   font-family: var(--font-body);
 }
 
-/* =========================
-   HOME THEME (.bg on body)
-   Applied via your useBodyClass("bg")
-   ========================= */
-
-body.bg {
-  background: linear-gradient(var(--brand-1), var(--brand-2));
-  background-size: 200% 200%;
+/* Headings on portfolio pages */
+h1 {
+  color: var(--brand-1);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  margin: 1% 0;
 }
 
-/* Make text white on the home gradient */
-body.bg h1,
-body.bg h2,
-body.bg h3,
-body.bg p,
-body.bg a {
-  color: #ffffff;
+h2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  font-family: var(--font-body);
 }
 
 /* =========================
-   NAVIGATION (new markup)
+   NAVIGATION
    ========================= */
 
 nav {
-  padding: 12px var(--pad-nav-x);
+  padding: 12px var(--pad-nav);
   font-family: var(--font-body);
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: 10;
 }
 
-/* Default nav pill for non-home pages */
-nav ul {
+.post-nav{
+  padding: 0px;
+}
+
+/* Default */
+.in-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   list-style: none;
   min-height: 60px;
   padding: 0 30px;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-pill);
 
   width: min(400px, 100%);
   background: radial-gradient(var(--brand-1), var(--brand-2));
   filter: drop-shadow(var(--nav-shadow) 0px 0px 5px);
 }
 
-/* Home page nav pill (light pill + orange links) */
-body.bg nav ul {
-  background: radial-gradient(#ffffff, #faddcf);
-  filter: drop-shadow(var(--home-nav-shadow) 0px 0px 5px);
+.in-nav li {
+  font-size: 1.1rem;
 }
 
-nav ul li {
-  font-size: 1.1rem;
+.in-nav a {
+  color: #ffffff;
+}
+
+.in-nav a:hover {
+  border-bottom: 2px solid #faddcf;
 }
 
 .nav-logo img {
   height: 30px;
 }
 
-/* Link colours */
-nav ul li a {
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+  background-color: var(--ink);
+  padding: var(--pad-main);
+  margin-top: 10vh;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+footer p {
+  color: #F2EBDF;
+  font-family: var(--font-body);
+}
+
+/* =========================
+   HOME THEME 
+   ========================= */
+
+.bg {
+  background: linear-gradient(var(--brand-1), var(--brand-2));
+  background-size: 200% 200%;
+}
+
+.bg h1,
+.bg h2,
+.bg h3,
+.bg p,
+.bg a {
   color: #ffffff;
 }
 
-body.bg nav ul li a {
-  color: var(--brand-2);
+.bg .in-nav {
+  background: var(--paper);
+  filter: drop-shadow(var(--home-nav-shadow) 0px 0px 5px);
 }
 
-nav ul li a:hover {
-  border-bottom: 2px solid #faddcf;
+.bg .in-nav a {
+  color: var(--brand-2);
 }
 
 /* =========================
@@ -139,23 +172,21 @@ nav ul li a:hover {
    ========================= */
 
 main {
-  padding: 1% var(--pad-main-x);
+  padding: var(--pad-main);
   display: block;
-  min-height: 62vh;
+  min-height: 68vh;
 }
 
-/* Headings on portfolio pages */
-main h2 {
-  color: var(--brand-1);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 900;
-  margin: 1% 0;
+.projects{
+  padding: 0%;
 }
 
-main h3 {
-  font-weight: 600;
-  font-size: 1.5rem;
-  font-family: var(--font-body);
+article{
+  padding: var(--pad-main);
+}
+
+.copy{
+  display: block;
 }
 
 /* Break bar */
@@ -167,18 +198,22 @@ main h3 {
   display: block;
 }
 
-/* Ensure home headings stay white (override main h2 orange rule) */
-body.bg main h2 {
-  color: #ffffff;
+.video{
+  width: 80%;
+  aspect-ratio: 16/9;
+  margin: auto
 }
 
+
+
+
 /* =========================
-   HOME PAGE LAYOUT (existing styling)
+   HOME PAGE MAIN
    ========================= */
 
 .home-page {
   display: block;
-  padding: 4% 8%;
+  padding: var(--pad-main);
 }
 
 .home-page h1 {
@@ -200,7 +235,7 @@ body.bg main h2 {
 }
 
 /* =========================
-   PROJECT GRID (reuses your section/aside)
+   PROJECT GRID
    ========================= */
 
 section {
@@ -211,17 +246,16 @@ section {
 }
 
 section aside {
-  width: 49%;
+  width: 30%;
   padding: 1% 0;
 }
 
 /* Project card image */
-section aside figure img {
+section figure img {
   width: 100%;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-img);
 }
 
-/* Slight hover lift (subtle, keeps your look) */
 section aside a:hover figure img {
   transform: translateY(-2px);
   transition: transform 0.2s ease;
@@ -232,11 +266,11 @@ section aside a:hover figure img {
    ========================= */
 
 .featured-section .featured-card {
-  width: 100%;
+  width: 49%;
 }
 
 .featured-section .featured-card figure img {
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-img);
 }
 
 /* Featured summary spacing */
@@ -245,9 +279,7 @@ section aside a:hover figure img {
 }
 
 /* =========================
-   TAG FILTERS (new)
-   Styled to match your home gradient + brand palette
-   Filters only shown in Projects section as requested
+   TAG FILTERS
    ========================= */
 
 .tag-filters {
@@ -257,7 +289,7 @@ section aside a:hover figure img {
   margin: 2% 0;
 }
 
-/* Default look assumes it's on the home gradient */
+/* Default look assumes it's on the home page */
 .tag-pill {
   font-family: var(--font-body);
   font-weight: 600;
@@ -279,39 +311,6 @@ section aside a:hover figure img {
   background: #ffffff;
   color: var(--brand-2);
   border-color: #ffffff;
-}
-
-/* If you ever use filters on non-home pages, make them readable */
-body:not(.bg) .tag-pill {
-  border-color: rgba(0, 0, 0, 0.12);
-  background: rgba(0, 0, 0, 0.04);
-  color: var(--ink);
-}
-
-body:not(.bg) .tag-pill.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: #ffffff;
-}
-
-/* =========================
-   FOOTER (new markup)
-   ========================= */
-
-footer {
-  background-color: var(--ink);
-  padding: 3% var(--pad-main-x);
-  margin-top: 10vh;
-  min-height: 17vh;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-footer p {
-  color: #F2EBDF;
-  font-family: var(--font-body);
 }
 
 /* =========================

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function SiteNav() {
   return (
 	<nav>
-  	<ul>
+  	<ul className="in-nav">
     	<li className="nav-logo">
       	<Link to="/">
         	<img src="/images/icons/nav-logo.svg" alt="Home" />

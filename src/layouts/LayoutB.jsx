@@ -3,7 +3,8 @@ export default function LayoutB({ project }) {
 
   return (
 	<article className="layoutB">
-  	<header className="page-header"><h1>{title}</h1></header>
+  	<header className="page-header"><h1>{title}</h1>
+	<span className="break" aria-hidden="true"></span></header>
 
   	<section className="mosaic">
     	{/* Wide banners */}

@@ -1,17 +1,19 @@
 import ReactMarkdown from 'react-markdown';
 
 export default function LayoutA({ project }) {
-  const { title, content, images } = project;
+  const { title, content, images} = project;
 
   return (
-	<article className="layoutA">
+	<>
   	{images.hero && (
     	<figure className="hero">
       	<img src={images.hero.url} alt={project.coverAlt || `${title} hero`} />
     	</figure>
   	)}
+	<article>
   	<header className="page-header">
     	<h1>{title}</h1>
+		<span className="break" aria-hidden="true"></span>
   	</header>
 
   	<section className="copy">
@@ -26,6 +28,7 @@ export default function LayoutA({ project }) {
     	</section>
   	) : null}
 	</article>
+	</>
   );
 }
 

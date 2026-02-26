@@ -1,7 +1,7 @@
 import ReactMarkdown from 'react-markdown';
 
 export default function LayoutC({ project }) {
-  const { title, content, images } = project;
+  const { title, content, images} = project;
 
   const pairs = [];
   const sequence = [...(images.gallery || []), ...(images.details || [])];
@@ -13,6 +13,7 @@ export default function LayoutC({ project }) {
 	<article className="layoutC">
   	<header className="page-header">
     	<h1>{title}</h1>
+		<span className="break" aria-hidden="true"></span>
   	</header>
 
   	{images.hero && (

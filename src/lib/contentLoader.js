@@ -3,14 +3,14 @@ import fm from "front-matter";
 let _projectIndexCache = null;
 
 // 1) Eager: load markdown RAW so we can build an index (metadata)
-const mdIndexFiles = import.meta.glob("../content/projects/*.md", {
+const mdIndexFiles = import.meta.glob("../content/projects/**/*.md", {
   eager: true,
   query: "?raw",
   import: "default",
 });
 
 // 2) Lazy: loaders that can import a single file on demand
-const mdLazyLoaders = import.meta.glob("../content/projects/*.md", {
+const mdLazyLoaders = import.meta.glob("../content/projects/**/*.md", {
   query: "?raw",
   import: "default",
 });

@@ -4,9 +4,10 @@ import { loadProjectIndex, loadProjectBody } from "../lib/contentLoader";
 import LayoutA from "../layouts/LayoutA.jsx";
 import LayoutB from "../layouts/LayoutB.jsx";
 import LayoutC from "../layouts/LayoutC.jsx";
+import LayoutD from "../layouts/LayoutD.jsx";
 import SiteNav from "../components/SiteNav.jsx";
 
-const layouts = { A: LayoutA, B: LayoutB, C: LayoutC };
+const layouts = { A: LayoutA, B: LayoutB, C: LayoutC, D: LayoutD};
 
 export default function ProjectPage() {
   const { slug } = useParams();
@@ -50,12 +51,12 @@ export default function ProjectPage() {
   return (
 	<>
 	<SiteNav />
-	<main className="container">
+	<main className="projects">
   	{loading ? <p>Loading…</p> : <Layout project={{ ...project, content: body }} />}
 
-  	<nav className="post-nav">
+  	<aside>
     	<Link to="/">← Back</Link>
-  	</nav>
+  	</aside>
 	</main>
 	</>
   );
