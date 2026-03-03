@@ -1,7 +1,7 @@
 ---
 slug: "fork-animation"
 title: "2D Animation: Jumping Fork"
-date: "2021-06-17"
+date: "2021-06-22"
 tags: ["Animation"]
 layout: "D"      	# choose: "A", "B", or "C"
 imagesDir: "/src/assets/portfolio/2021/fork"
