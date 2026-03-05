@@ -15,11 +15,18 @@ const mdLazyLoaders = import.meta.glob("../content/projects/**/*.md", {
   import: "default",
 });
 
-// Images: URL map (these are URLs, images won’t download until used in <img>)
-const allImages = import.meta.glob("../assets/portfolio/**/*.{jpg,jpeg,png,webp,gif}", {
+// Images: URL map
+const allImages = import.meta.glob("../assets/portfolio/**/**/*.{jpg,jpeg,png,webp,gif,svg}", {
   eager: true,
-  as: "url",
+  query: "?url",
+  import: "default",
 });
+
+// Downloads / extra files (add extensions as needed)
+const allDownloads = import.meta.glob(
+  "../assets/portfolio/**/**/*.{pdf,zip,mp4,mp3,doc,docx,ppt,pptx,xls,xlsx}",
+  { eager: true, query: "?url", import: "default" }
+);
 
 const extractIndex = (name) => {
   const m = name.match(/(?:^|[-_])(\d{1,3})(?=[^-_]*\.)/);
@@ -32,11 +39,11 @@ const roleFromName = (filename) => {
   if (f.includes("thumb") || f.includes("cover")) return "thumb";
   if (f.includes("wide") || f.includes("banner")) return "wide";
   if (f.includes("detail") || f.includes("close")) return "detail";
+  // gallery-01, img_03, 001, etc.
   if (/gallery|img[-_]\d+|(^|\D)\d{1,3}(\D|$)/.test(f)) return "gallery";
   return "other";
 };
 
-// helper: derive slug from filename if missing
 const slugFromPath = (path) => {
   const file = path.split("/").pop()?.replace(/\.md$/, "") ?? "untitled";
   return file
@@ -56,21 +63,36 @@ const titleFromSlug = (slug) =>
 function normalizeFrontmatter(frontmatter, path) {
   const slug = frontmatter.slug || slugFromPath(path);
   const title = frontmatter.title || titleFromSlug(slug);
-  const layout = frontmatter.layout || "A";
+  const layout = frontmatter.layout || "hero";
 
-  // Ensure date sorts safely. Accept real dates; fallback if missing/invalid.
   const dateCandidate = frontmatter.date || "1970-01-01";
   const date = isNaN(new Date(dateCandidate).getTime()) ? "1970-01-01" : dateCandidate;
 
-  // If imagesDir missing, assume folder matches slug
   const imagesDir = frontmatter.imagesDir || `/src/assets/portfolio/${slug}`;
 
-  return { ...frontmatter, slug, title, layout, date, imagesDir };
+  // Optional fields used by layouts
+  const bottomGallery = frontmatter.bottomGallery ?? false;
+  const iframeUrl = frontmatter.iframeUrl || "";
+  const iframeTitle = frontmatter.iframeTitle || title;
+  const iframeHeight = frontmatter.iframeHeight || "";
+
+  return {
+	...frontmatter,
+	slug,
+	title,
+	layout,
+	date,
+	imagesDir,
+	bottomGallery,
+	iframeUrl,
+	iframeTitle,
+	iframeHeight,
+  };
 }
 
 function buildImages(frontmatter) {
-  const imagesDirRaw = frontmatter.imagesDir;
-  const imagesDir = imagesDirRaw.replace(/^\/?src\//, "../"); // normalize
+  // Convert e.g. /src/assets/... -> ../assets/... for our import.meta.glob keys
+  const imagesDir = frontmatter.imagesDir.replace(/^\/?src\//, "../");
 
   const images = Object.entries(allImages)
 	.filter(([imgPath]) => imgPath.startsWith(imagesDir))
@@ -83,17 +105,35 @@ function buildImages(frontmatter) {
   const hero = images.find((i) => i.role === "hero") || null;
   const thumb = images.find((i) => i.role === "thumb") || hero || null;
   const wide = images.filter((i) => i.role === "wide");
-  const gallery = images
-	.filter((i) => i.role === "gallery")
-	.sort((a, b) => a.index - b.index);
+  const gallery = images.filter((i) => i.role === "gallery").sort((a, b) => a.index - b.index);
   const details = images.filter((i) => i.role === "detail");
 
   return { hero, thumb, wide, gallery, details, all: images };
 }
 
+function buildDownloads(frontmatter) {
+  const imagesDir = frontmatter.imagesDir.replace(/^\/?src\//, "../");
+
+  const files = Object.entries(allDownloads)
+	.filter(([p]) => p.startsWith(imagesDir))
+	.map(([p, url]) => {
+  	const fileName = p.split("/").pop();
+  	const ext = fileName.split(".").pop()?.toLowerCase() || "";
+  	const label = fileName
+    	.replace(/\.[^.]+$/, "")
+    	.replace(/[-_]+/g, " ")
+    	.replace(/\s+/g, " ")
+    	.trim();
+
+  	return { url, fileName, ext, label };
+	})
+	.sort((a, b) => a.fileName.localeCompare(b.fileName));
+
+  return files;
+}
+
 // -------------- Public API --------------
 
-// Index: metadata only (fast render for homepage)
 export function loadProjectIndex() {
   if (_projectIndexCache) return _projectIndexCache;
 
@@ -102,14 +142,13 @@ export function loadProjectIndex() {
   for (const [path, raw] of Object.entries(mdIndexFiles)) {
 	const parsed = fm(raw);
 	const frontmatterRaw = parsed.attributes || {};
-
 	const frontmatter = normalizeFrontmatter(frontmatterRaw, path);
 
 	projects.push({
   	...frontmatter,
-  	mdPath: path, // IMPORTANT: used for lazy loading body later
+  	mdPath: path,
   	images: buildImages(frontmatter),
-  	// do NOT include full markdown body here
+  	downloads: buildDownloads(frontmatter),
 	});
   }
 
@@ -118,7 +157,6 @@ export function loadProjectIndex() {
   return projects;
 }
 
-// Single project body: load only when needed
 export async function loadProjectBody(mdPath) {
   const loader = mdLazyLoaders[mdPath];
   if (!loader) throw new Error(`No markdown loader found for: ${mdPath}`);
@@ -127,15 +165,12 @@ export async function loadProjectBody(mdPath) {
   return parsed.body || "";
 }
 
-// Optional: reset cache (handy for dev/HMR)
 export function resetProjectIndexCache() {
   _projectIndexCache = null;
 }
 
-// HMR: If markdown files change during `npm run dev`, clear cache automatically
 if (import.meta.hot) {
   import.meta.hot.accept(() => {
 	resetProjectIndexCache();
   });
 }
-

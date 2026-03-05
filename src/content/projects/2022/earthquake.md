@@ -1,9 +1,10 @@
 ---
 slug: "earthquake-visualisation"
-title: "Earthquake Visualisation (Concept)"
+title: "Earthquake Data Visualisation"
 date: "2022-09-22"
 tags: ["Data Visualisation", "Design"]
-layout: "C"
+layout: "hero"
+bottomGallery: true
 featured: false
 summary: "A visualisation concept showing that Australia experiences more earthquakes than many think—highlighting why that misconception exists and how magnitude relates to power."
 coverAlt: "Early sketches and chart studies exploring earthquake magnitude and relative power over time."

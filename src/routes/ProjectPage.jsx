@@ -1,13 +1,22 @@
 import { useMemo, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { loadProjectIndex, loadProjectBody } from "../lib/contentLoader";
-import LayoutA from "../layouts/LayoutA.jsx";
-import LayoutB from "../layouts/LayoutB.jsx";
-import LayoutC from "../layouts/LayoutC.jsx";
-import LayoutD from "../layouts/LayoutD.jsx";
-import SiteNav from "../components/SiteNav.jsx";
 
-const layouts = { A: LayoutA, B: LayoutB, C: LayoutC, D: LayoutD};
+import HeroLayout from "../layouts/HeroLayout.jsx";
+import GalleryLayout from "../layouts/GalleryLayout.jsx";
+import IframeLayout from "../layouts/IframeLayout.jsx";
+import SiteNav from "../components/SiteNav.jsx"
+
+const layouts = {
+  hero: HeroLayout,
+  gallery: GalleryLayout,
+  iframe: IframeLayout,
+
+  // Backward compatibility if some projects still use A/B/C:
+  A: HeroLayout,
+  B: GalleryLayout,
+  C: IframeLayout,
+};
 
 export default function ProjectPage() {
   const { slug } = useParams();
@@ -39,26 +48,25 @@ export default function ProjectPage() {
 
   if (!project) {
 	return (
-  	<main className="container">
+  	<main>
     	<p>Project not found.</p>
     	<Link to="/">Back to index</Link>
   	</main>
 	);
   }
 
-  const Layout = layouts[project.layout] || LayoutA;
+  const Layout = layouts[project.layout] || HeroLayout;
 
   return (
 	<>
 	<SiteNav />
-	<main className="projects">
+	<main>
   	{loading ? <p>Loading…</p> : <Layout project={{ ...project, content: body }} />}
 
-  	<aside>
+  	<nav className="post-nav">
     	<Link to="/">← Back</Link>
-  	</aside>
+  	</nav>
 	</main>
 	</>
   );
 }
-

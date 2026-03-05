@@ -3,8 +3,11 @@ slug: "3d-skull-animation"
 title: "3D Skull Animation"
 date: "2021-04-25"
 tags: ["Animation"]
-layout: "C"
-featured: true
+layout: "iframe"
+iframeUrl: "https://example.com/embed"
+iframeTitle: "Interactive prototype"
+iframeHeight: "900"   # optional
+bottomGallery: true   # optional (if you also have images)
 summary: "A short, low‑poly animation exploring hybrid 3D/2D aesthetics, built around a simple narrative, playful timing, and a focused rigging workflow."
 coverAlt: "A low‑poly skull character in a stylised environment, storyboard-to-animation concept."
 imagesDir: "/src/assets/portfolio/2021/skull"

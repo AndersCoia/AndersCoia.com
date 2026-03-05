@@ -3,8 +3,8 @@ slug: "grad-show-2022-redesign"
 title: "Grad Show Website Redesign (Concept)"
 date: "2022-09-22"
 tags: ["Web", "Design"]
-layout: "A"
-featured: true
+layout: "hero"
+bottomGallery: true
 summary: "A concept redesign for a graduate exhibition website, focusing on clarity, confidence, and an online experience that puts student work at the centre of the journey."
 coverAlt: "Concept wireframes and interface elements for a graduate exhibition website."
 imagesDir: "/src/assets/portfolio/2022/grad-show"

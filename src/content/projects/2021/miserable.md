@@ -3,7 +3,8 @@ slug: "how-to-stay-miserable"
 title: "How to Stay Miserable (Editorial Guidebook)"
 date: "2021-06-06"
 tags: ["Design", "Print"]
-layout: "B"
+layout: "gallery"
+bottomGallery: true
 featured: false
 summary: "A semi-sarcastic guidebook that uses dark humour, symbolism, and a cohesive visual system to surface negative habits—and gently point toward healthier alternatives."
 coverAlt: "Illustrated editorial spreads with ‘corruption’ graphics and symbolic objects."

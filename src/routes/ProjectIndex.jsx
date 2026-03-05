@@ -47,7 +47,6 @@ export default function ProjectIndex() {
 
   return (
 	<>
-  	{/* If you build a HomeNav component later, put it here */}
   	<HomeNav />
 
   	<main className="home-page">
@@ -56,7 +55,7 @@ export default function ProjectIndex() {
     	<span className="break" aria-hidden="true"></span>
 
     	{/* ---------- FEATURED ---------- */}
-    	<h2>FEATURED</h2>
+    	<h2>FEATURED WORK</h2>
     	<span className="break" aria-hidden="true"></span>
 
     	<section className="featured-section">
